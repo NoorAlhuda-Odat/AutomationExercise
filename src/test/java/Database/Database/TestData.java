@@ -2,6 +2,7 @@ package Database.Database;
 
 import java.time.Duration;
 import java.util.Random;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -11,6 +12,7 @@ public class TestData {
 	WebDriver driver = new ChromeDriver();
 	String URL ="https://www.automationexercise.com";
 	Random rand = new Random();
+	JavascriptExecutor js = (JavascriptExecutor) driver;
 	
 //For BeforeTest	
 	 public void setup() {
@@ -18,7 +20,7 @@ public class TestData {
 		  driver.manage().window().maximize();
 		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 		}
-	 
+ 
 //For test 1
 	 String expectedTitle = "Automation Exercise";
 	 
@@ -41,8 +43,6 @@ public class TestData {
 	 int randomProductIndex = rand.nextInt(3);
 	 String randomProductName = productName[randomProductIndex];
 	 String expectedProductName = randomProductName.toLowerCase();
-
-	 
 	 
 
 }
