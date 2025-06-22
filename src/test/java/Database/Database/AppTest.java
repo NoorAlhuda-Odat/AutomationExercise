@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -161,6 +162,23 @@ public class AppTest extends TestData {
 	}
 	
 	@Test(priority = 4)
+	public void viewBrandProductsTest() throws InterruptedException {
+		// Scroll down 
+	    js.executeScript("window.scrollTo(document.body.scrollHeight,500);");
+	    Thread.sleep(1000); 
+	    
+	    // Select random brand
+	    List<WebElement> brands = driver.findElements(By.cssSelector(".brands-name"));
+	    int randomIndex= rand.nextInt(brands.size());
+	    brands.get(randomIndex).click();
+	    Thread.sleep(2000);
+	    
+	    // Verify that the brand page is displayed
+	    WebElement brandTitle = driver.findElement(By.cssSelector(".title.text-center"));
+	    Assert.assertTrue(brandTitle.isDisplayed(), "❌ Brand title not displayed.");  
+	}
+	
+	@Test(priority = 5)
 	public void addRandomProductToCartTest() throws InterruptedException {
 	    // Click on 'Products' button
 	    WebElement products = driver.findElement(By.partialLinkText("Products"));
@@ -199,108 +217,8 @@ public class AppTest extends TestData {
 	    continueShoppingBtn.click();
 	    Thread.sleep(1000);
 	}
-
-	@Test(priority = 5)
-	public void proceedToCheckoutTest() {
-		
-		// Click on 'Cart' button
-		WebElement cartBtn = driver.findElement(By.partialLinkText("Cart"));
-		cartBtn.click();
-
-	    // Click on the 'Proceed To Checkout' button
-	    WebElement proceedToCheckoutBtn = driver.findElement(By.partialLinkText("Proceed To Checkout"));
-	    proceedToCheckoutBtn.click();
-	    
-	    // Verify that the checkout page is displayed by checking Address Details and Order Review sections
-	    WebElement addressDetails = driver.findElement(By.xpath("//h2[contains(text(),'Address Details')]"));
-	    WebElement orderReview = driver.findElement(By.xpath("//h2[contains(text(),'Review Your Order')]"));
-
-	    Assert.assertTrue(addressDetails.isDisplayed(), "❌ Address details section is not displayed.");
-	    Assert.assertTrue(orderReview.isDisplayed(), "❌ Order review section is not displayed.");
-
-	    System.out.println("✅ Proceed to Checkout page displayed successfully.");
-	    
-	}
 	
 	@Test(priority = 6)
-	public void contactUsFormSubmissionTest() throws InterruptedException {
-	    // Click on the "Contact us" button
-	    WebElement contactUsBtn = driver.findElement(By.linkText("Contact us"));
-	    contactUsBtn.click();
-
-	    // Fill in the form fields
-	    driver.findElement(By.name("name")).sendKeys(randomName);
-	    driver.findElement(By.name("email")).sendKeys(randomEmail);
-	    driver.findElement(By.name("subject")).sendKeys("Testing Contact Form");
-	    driver.findElement(By.id("message")).sendKeys("This is a test message for QA automation.");
-
-	    // Click on the "Submit" button
-	    WebElement submitBtn = driver.findElement(By.name("submit"));
-	    submitBtn.click();
-
-	    // Handle alert if it appears (some forms show an alert confirmation)
-	    driver.switchTo().alert().accept(); // Only if there's an alert popup
-	    Thread.sleep(1000);
-
-	    // Verify confirmation message is displayed
-	    WebElement successMsg = driver.findElement(By.xpath("//div[@class='status alert alert-success']"));
-	    Assert.assertTrue(successMsg.isDisplayed(), "❌ Contact form submission failed!");
-	    
-	    System.out.println("✅ Contact form submitted successfully.");
-	    
-	}
-	
-	@Test(priority = 7)
-	public void subscriptionTest() throws InterruptedException {
-		// Click on the "Home" button
-	    WebElement  homeBtn = driver.findElement(By.linkText("Home"));
-	    homeBtn.click();
-	    
-	    // Scroll down to footer
-	    js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-	    Thread.sleep(1000); 
-	    
-	    // Find the subscription input field and enter email
-	    WebElement footer = driver.findElement(By.id("footer"));
-	    WebElement emailInput = footer.findElement(By.id("susbscribe_email"));
-	    emailInput.sendKeys(randomEmail);
-	   
-	    // Click the Subscribe button
-	    WebElement subscribeBtn = driver.findElement(By.id("subscribe"));
-	    subscribeBtn.click();
-	    Thread.sleep(1000);
-	    
-	    // Verify that the subscription confirmation message is displayed
-	    WebElement confirmationMsg = driver.findElement(By.xpath("//div[@class='alert-success alert']"));
-	    Assert.assertTrue(confirmationMsg.isDisplayed(), "❌ Subscription confirmation message not displayed.");
-	    
-	    System.out.println("✅ Subscription completed successfully.");
-	   
-	}
-	
-	@Test(priority = 8)
-	public void viewBrandProductsTest() throws InterruptedException {
-		// Click on 'Products' button
-		WebElement products = driver.findElement(By.partialLinkText("Products"));
-		products.click();
-		
-		// Scroll down 
-	    js.executeScript("window.scrollTo(document.body.scrollHeight,500);");
-	    Thread.sleep(1000); 
-	    
-	    // Select random brand
-	    List<WebElement> brands = driver.findElements(By.cssSelector(".brands-name"));
-	    int randomIndex= rand.nextInt(brands.size());
-	    brands.get(randomIndex).click();
-	    Thread.sleep(2000);
-	    
-	    // Verify that the brand page is displayed
-	    WebElement brandTitle = driver.findElement(By.cssSelector(".title.text-center"));
-	    Assert.assertTrue(brandTitle.isDisplayed(), "❌ Brand title not displayed.");
-	    
-	}
-
-	@Test(priority = 9)
 	public void submitProductReviewTest() throws InterruptedException {
 		// Click on 'Products' button
 		WebElement products = driver.findElement(By.xpath("//a[@href='/products']"));
@@ -329,7 +247,80 @@ public class AppTest extends TestData {
 	    Assert.assertTrue(successMsg.isDisplayed(), "Review confirmation failed");
 	    
 	}
+	
+	@Test(priority = 7)
+	public void contactUsFormSubmissionTest() throws InterruptedException {
+	    // Click on the "Contact us" button
+	    WebElement contactUsBtn = driver.findElement(By.linkText("Contact us"));
+	    contactUsBtn.click();
 
+	    // Fill in the form fields
+	    driver.findElement(By.name("name")).sendKeys(randomName);
+	    driver.findElement(By.name("email")).sendKeys(randomEmail);
+	    driver.findElement(By.name("subject")).sendKeys("Testing Contact Form");
+	    driver.findElement(By.id("message")).sendKeys("This is a test message for QA automation.");
+
+	    // Click on the "Submit" button
+	    WebElement submitBtn = driver.findElement(By.name("submit"));
+	    submitBtn.click();
+
+	    // Handle alert if it appears (some forms show an alert confirmation)
+	    driver.switchTo().alert().accept(); // Only if there's an alert popup
+	    Thread.sleep(1000);
+
+	    // Verify confirmation message is displayed
+	    WebElement successMsg = driver.findElement(By.xpath("//div[@class='status alert alert-success']"));
+	    Assert.assertTrue(successMsg.isDisplayed(), "❌ Contact form submission failed!");
+	    
+	    System.out.println("✅ Contact form submitted successfully.");
+	    
+	}
+	
+	@Test(priority = 8)
+	public void subscriptionTest() throws InterruptedException {
+	    // Scroll down to footer
+	    js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+	    Thread.sleep(1000); 
+	    
+	    // Find the subscription input field and enter email
+	    WebElement footer = driver.findElement(By.id("footer"));
+	    WebElement emailInput = footer.findElement(By.id("susbscribe_email"));
+	    emailInput.sendKeys(randomEmail);
+	   
+	    // Click the Subscribe button
+	    WebElement subscribeBtn = driver.findElement(By.id("subscribe"));
+	    subscribeBtn.click();
+	    Thread.sleep(1000);
+	    
+	    // Verify that the subscription confirmation message is displayed
+	    WebElement confirmationMsg = driver.findElement(By.xpath("//div[@class='alert-success alert']"));
+	    Assert.assertTrue(confirmationMsg.isDisplayed(), "❌ Subscription confirmation message not displayed.");
+	    
+	    System.out.println("✅ Subscription completed successfully.");
+	   
+	}
+	
+	@Test(priority = 9)
+	public void proceedToCheckoutTest() {
+		// Click on 'Cart' button
+		WebElement cartBtn = driver.findElement(By.partialLinkText("Cart"));
+		cartBtn.click();
+
+	    // Click on the 'Proceed To Checkout' button
+	    WebElement proceedToCheckoutBtn = driver.findElement(By.partialLinkText("Proceed To Checkout"));
+	    proceedToCheckoutBtn.click();
+	    
+	    // Verify that the checkout page is displayed by checking Address Details and Order Review sections
+	    WebElement addressDetails = driver.findElement(By.xpath("//h2[contains(text(),'Address Details')]"));
+	    WebElement orderReview = driver.findElement(By.xpath("//h2[contains(text(),'Review Your Order')]"));
+
+	    Assert.assertTrue(addressDetails.isDisplayed(), "❌ Address details section is not displayed.");
+	    Assert.assertTrue(orderReview.isDisplayed(), "❌ Order review section is not displayed.");
+
+	    System.out.println("✅ Proceed to Checkout page displayed successfully.");
+	    
+	}
+	
 	@Test(priority = 10)
 	public void testLogoutFunctionality() {
 		// Click on 'Logout' button
@@ -340,10 +331,10 @@ public class AppTest extends TestData {
 	    Assert.assertTrue(loginLink.isDisplayed() , "Logout verification failed");
 	    
 	}
-	/*
+	
 	@AfterTest
 	public void tearDown() {
 	    driver.quit();
 	}
-*/
+
 }

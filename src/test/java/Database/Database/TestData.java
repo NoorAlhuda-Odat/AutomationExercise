@@ -21,8 +21,8 @@ public class TestData {
 		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 		}
 	 
-//For test 1
-	//Enter name and email address
+
+//Enter name and email address
 	 String[] names = {"Noor","Ragad","Shahed","Malak","Zain"};
 	 int randomIndex = rand.nextInt(5);
 	 
@@ -31,11 +31,9 @@ public class TestData {
 	 
 	 int randomIndexForTheEmail = rand.nextInt(11111);
 	 String randomEmail = randomName+randomIndexForTheEmail+"@gmail.com";
-	 
-//For test 2
+//for test 2
 	 String expectedMessage = "Logged in as " + randomName;
-	 
-//For test 3
+//for test 3
 	 String[] productName = {"Top", "Tshirt", "Dress"};
 	 int randomProductIndex = rand.nextInt(3);
 	 String randomProductName = productName[randomProductIndex];

@@ -2,52 +2,52 @@
 <testng-results ignored="0" total="10" passed="10" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-06-22T14:42:04 GMT+03:00" name="Default suite" finished-at="2025-06-22T14:43:04 GMT+03:00" duration-ms="59540">
+  <suite started-at="2025-06-22T21:17:59 GMT+03:00" name="Default suite" finished-at="2025-06-22T21:18:58 GMT+03:00" duration-ms="58818">
     <groups>
     </groups>
-    <test started-at="2025-06-22T14:42:04 GMT+03:00" name="Default test" finished-at="2025-06-22T14:43:04 GMT+03:00" duration-ms="59540">
+    <test started-at="2025-06-22T21:17:59 GMT+03:00" name="Default test" finished-at="2025-06-22T21:18:58 GMT+03:00" duration-ms="58818">
       <class name="Database.Database.AppTest">
-        <test-method is-config="true" signature="mySetup()[pri:0, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:04 GMT+03:00" name="mySetup" finished-at="2025-06-22T14:42:09 GMT+03:00" duration-ms="4269" status="PASS">
+        <test-method is-config="true" signature="mySetup()[pri:0, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:17:59 GMT+03:00" name="mySetup" finished-at="2025-06-22T21:18:04 GMT+03:00" duration-ms="4658" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- mySetup -->
-        <test-method signature="registerUserTest()[pri:1, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:09 GMT+03:00" name="registerUserTest" finished-at="2025-06-22T14:42:18 GMT+03:00" duration-ms="9364" status="PASS">
+        <test-method signature="registerUserTest()[pri:1, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:04 GMT+03:00" name="registerUserTest" finished-at="2025-06-22T21:18:14 GMT+03:00" duration-ms="10176" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- registerUserTest -->
-        <test-method signature="loginUserTest()[pri:2, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:18 GMT+03:00" name="loginUserTest" finished-at="2025-06-22T14:42:22 GMT+03:00" duration-ms="3790" status="PASS">
+        <test-method signature="loginUserTest()[pri:2, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:14 GMT+03:00" name="loginUserTest" finished-at="2025-06-22T21:18:19 GMT+03:00" duration-ms="4610" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginUserTest -->
-        <test-method signature="productSearchTest()[pri:3, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:22 GMT+03:00" name="productSearchTest" finished-at="2025-06-22T14:42:26 GMT+03:00" duration-ms="3831" status="PASS">
+        <test-method signature="productSearchTest()[pri:3, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:19 GMT+03:00" name="productSearchTest" finished-at="2025-06-22T21:18:23 GMT+03:00" duration-ms="4192" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- productSearchTest -->
-        <test-method signature="addRandomProductToCartTest()[pri:4, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:26 GMT+03:00" name="addRandomProductToCartTest" finished-at="2025-06-22T14:42:38 GMT+03:00" duration-ms="12058" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- addRandomProductToCartTest -->
-        <test-method signature="proceedToCheckoutTest()[pri:5, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:38 GMT+03:00" name="proceedToCheckoutTest" finished-at="2025-06-22T14:42:40 GMT+03:00" duration-ms="2386" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- proceedToCheckoutTest -->
-        <test-method signature="contactUsFormSubmissionTest()[pri:6, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:40 GMT+03:00" name="contactUsFormSubmissionTest" finished-at="2025-06-22T14:42:44 GMT+03:00" duration-ms="3382" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- contactUsFormSubmissionTest -->
-        <test-method signature="subscriptionTest()[pri:7, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:44 GMT+03:00" name="subscriptionTest" finished-at="2025-06-22T14:42:50 GMT+03:00" duration-ms="6154" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- subscriptionTest -->
-        <test-method signature="viewBrandProductsTest()[pri:8, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:50 GMT+03:00" name="viewBrandProductsTest" finished-at="2025-06-22T14:42:57 GMT+03:00" duration-ms="6798" status="PASS">
+        <test-method signature="viewBrandProductsTest()[pri:4, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:23 GMT+03:00" name="viewBrandProductsTest" finished-at="2025-06-22T21:18:28 GMT+03:00" duration-ms="4947" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- viewBrandProductsTest -->
-        <test-method signature="submitProductReviewTest()[pri:9, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:42:57 GMT+03:00" name="submitProductReviewTest" finished-at="2025-06-22T14:43:03 GMT+03:00" duration-ms="6236" status="PASS">
+        <test-method signature="addRandomProductToCartTest()[pri:5, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:28 GMT+03:00" name="addRandomProductToCartTest" finished-at="2025-06-22T21:18:40 GMT+03:00" duration-ms="11761" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addRandomProductToCartTest -->
+        <test-method signature="submitProductReviewTest()[pri:6, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:40 GMT+03:00" name="submitProductReviewTest" finished-at="2025-06-22T21:18:48 GMT+03:00" duration-ms="8349" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- submitProductReviewTest -->
-        <test-method signature="testLogoutFunctionality()[pri:10, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T14:43:03 GMT+03:00" name="testLogoutFunctionality" finished-at="2025-06-22T14:43:04 GMT+03:00" duration-ms="1133" status="PASS">
+        <test-method signature="contactUsFormSubmissionTest()[pri:7, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:48 GMT+03:00" name="contactUsFormSubmissionTest" finished-at="2025-06-22T21:18:51 GMT+03:00" duration-ms="3361" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- contactUsFormSubmissionTest -->
+        <test-method signature="subscriptionTest()[pri:8, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:51 GMT+03:00" name="subscriptionTest" finished-at="2025-06-22T21:18:54 GMT+03:00" duration-ms="2447" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- subscriptionTest -->
+        <test-method signature="proceedToCheckoutTest()[pri:9, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:54 GMT+03:00" name="proceedToCheckoutTest" finished-at="2025-06-22T21:18:57 GMT+03:00" duration-ms="3137" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- proceedToCheckoutTest -->
+        <test-method signature="testLogoutFunctionality()[pri:10, instance:Database.Database.AppTest@4dc8caa7]" started-at="2025-06-22T21:18:57 GMT+03:00" name="testLogoutFunctionality" finished-at="2025-06-22T21:18:58 GMT+03:00" duration-ms="1063" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testLogoutFunctionality -->

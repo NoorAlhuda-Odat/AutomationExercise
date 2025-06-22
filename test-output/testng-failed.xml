@@ -5,8 +5,10 @@
     <classes>
       <class name="Database.Database.AppTest">
         <methods>
+          <include name="viewBrandProductsTest"/>
+          <include name="addRandomProductToCartTest"/>
+          <include name="productSearchTest"/>
           <include name="mySetup"/>
-          <include name="loginUserTest"/>
         </methods>
       </class> <!-- Database.Database.AppTest -->
     </classes>
