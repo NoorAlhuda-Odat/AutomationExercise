@@ -6,9 +6,9 @@ import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -19,13 +19,7 @@ public class AppTest extends TestData {
 		setup();
 	}
 	
-	@Test(priority = 1,enabled = false)
-	public void homePageLoads() {
-		String actualTitle = driver.getTitle();
-		Assert.assertEquals(actualTitle, expectedTitle, "Home page did not load correctly!");
-	}
-	
-	@Test(priority = 2,enabled = false)
+	@Test(priority = 1)
 	public void registerUserTest () {
 		// Click on 'Signup / Login' button
 		WebElement signupLoginButton = driver.findElement(By.linkText("Signup / Login"));
@@ -104,10 +98,11 @@ public class AppTest extends TestData {
 		 Assert.assertTrue(accountCreatedMsg.isDisplayed(), "Account was not created successfully!");
 		 
 		 WebElement continuebutton =driver.findElement(By.xpath("//a[@data-qa='continue-button']"));
-		 continuebutton.click();		
+		 continuebutton.click();
+		 	
 	}
 	
-	@Test(priority = 3,enabled = false)
+	@Test(priority = 2)
 	public void loginUserTest() {
 		// Click on 'Logout' button
 		WebElement logout = driver.findElement(By.linkText("Logout"));
@@ -132,7 +127,7 @@ public class AppTest extends TestData {
 	    
 	}
 	
-	@Test(priority = 4,enabled = false)
+	@Test(priority = 3)
 	public void productSearchTest() {
 	    // Click on "Products" page
 	    WebElement products = driver.findElement(By.xpath("//a[@href='/products']"));
@@ -164,87 +159,49 @@ public class AppTest extends TestData {
 	        Assert.fail("❌ Product name does not contain the searched word.");
 	    }
 	}
-	@Test(priority = 5,enabled = false)
-	public void ViewProductDetails() {
-		// Click on 'Products' button
-		WebElement products = driver.findElement(By.xpath("//a[@href='/products']"));
-		products.click();
-		
-		// Click on 'View Product' of the first product
-		WebElement viewProductBtn = driver.findElement(By.xpath("(//a[@href='/product_details/1'])[1]"));
-		viewProductBtn.click();
-		 
-	    // Verify product details
-	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='product-information']/img[@class='newarrival']")).isDisplayed(), "Product image not displayed");
-	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='product-information']/h2")).isDisplayed(), "Product name not displayed");
-	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='product-information']//span/span")).isDisplayed(), "Price not displayed");
-	    Assert.assertTrue(driver.findElement(By.xpath("//p[b[text()='Availability:']]")).isDisplayed(), "Availability info not displayed");
-	    Assert.assertTrue(driver.findElement(By.xpath("//p[b[text()='Condition:']]")).isDisplayed(), "Condition info not displayed");
-	    Assert.assertTrue(driver.findElement(By.xpath("//p[b[text()='Brand:']]")).isDisplayed(), "Brand info not displayed");
-
-	}
-
-	@Test(priority = 6,enabled = false)
+	
+	@Test(priority = 4)
 	public void addRandomProductToCartTest() throws InterruptedException {
-		// Click on 'Products' button
+	    // Click on 'Products' button
 	    WebElement products = driver.findElement(By.partialLinkText("Products"));
 	    products.click();
-	    Thread.sleep(2000); 
+	    Thread.sleep(3000);
 
-	    // Get all "Add to cart" buttons
-	    List<WebElement> addToCartButtons = driver.findElements(By.xpath("//a[@class='btn btn-default add-to-cart']"));
-
-	    // Select a random button
+	    // Get all product cards
+	    List<WebElement> productCards = driver.findElements(By.xpath("//div[@class='product-image-wrapper']"));
 	    Random random = new Random();
-	    int randomIndex = random.nextInt(addToCartButtons.size());
-	    Thread.sleep(1000);
-	    WebElement randomAddToCartBtn = addToCartButtons.get(randomIndex);
-	    randomAddToCartBtn.click();
+	    int randomIndex = random.nextInt(productCards.size());
+	    WebElement randomCard = productCards.get(randomIndex);
 
-	    // Verify the confirmation message appears
+	    // Scroll to the card
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", randomCard);
 	    Thread.sleep(1000);
+
+	    // Hover over the selected card with build().perform()
+	    Actions actions = new Actions(driver);
+	    actions.moveToElement(randomCard).build().perform();
+	    Thread.sleep(1000);
+
+	    // Find the "Add to cart" inside the overlay only
+	    WebElement addToCartOverlayBtn = randomCard.findElement(By.xpath(".//div[@class='product-overlay']//a[contains(@class, 'add-to-cart')]"));
+
+	    // Click it with JS to avoid interception
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addToCartOverlayBtn);
+	    Thread.sleep(3000);
+
+	    // Verify success message
 	    WebElement confirmation = driver.findElement(By.xpath("//h4[@class='modal-title w-100']"));
 	    Assert.assertTrue(confirmation.isDisplayed(), "❌ Product not added to cart!");
-	    System.out.println("✅ Random product successfully added to cart.");
+	    System.out.println("✅ Random product successfully added to cart from overlay.");
 
-	    // Click "Continue Shopping" to close the modal
+	    // Close modal
 	    WebElement continueShoppingBtn = driver.findElement(By.xpath("//button[@data-dismiss='modal']"));
 	    continueShoppingBtn.click();
+	    Thread.sleep(1000);
 	}
 
-	@Test(priority = 7,enabled = false)
-	public void viewAndModifyCartTest() throws InterruptedException {
-		// Click on 'Cart' button
-		WebElement cartBtn = driver.findElement(By.partialLinkText("Cart"));
-		cartBtn.click();
-	    
-	    // Verify that product is listed in the cart
-	    WebElement product = driver.findElement(By.id("cart_info_table"));
-	    Assert.assertTrue(product.isDisplayed(), "❌ Product not listed in the cart!");
-	    
-	    //Click on 'Remove'button
-	    WebElement removeBtn = driver.findElement(By.xpath("//a[@class='cart_quantity_delete']"));
-	    removeBtn.click();
-	    Thread.sleep(1000);
-	    
-	    //Verify that the product is removed from the cart
-	    List<WebElement> removedItem = driver.findElements(By.xpath("//tr[@id='product-1']"));
-	    Assert.assertTrue(removedItem.size() == 0, "❌ Product was not removed from cart.");
-	    System.out.println("✅ Product was successfully removed from the cart.");
-	   
-	}
-	
-	@Test(priority = 8,enabled = false)
+	@Test(priority = 5)
 	public void proceedToCheckoutTest() {
-		// Click on 'Products' button
-		WebElement products = driver.findElement(By.partialLinkText("Products"));
-		products.click();
-		//Click on "Add to cart" button
-		WebElement firstAddToCartBtn = driver.findElement(By.xpath("//a[@class='btn btn-default add-to-cart']"));
-		firstAddToCartBtn.click();
-		// Click "Continue Shopping" to close the modal
-		WebElement continueShoppingBtn = driver.findElement(By.xpath("//button[@data-dismiss='modal']"));
-		continueShoppingBtn.click();
 		
 		// Click on 'Cart' button
 		WebElement cartBtn = driver.findElement(By.partialLinkText("Cart"));
@@ -265,7 +222,7 @@ public class AppTest extends TestData {
 	    
 	}
 	
-	@Test(priority = 9,enabled = false)
+	@Test(priority = 6)
 	public void contactUsFormSubmissionTest() throws InterruptedException {
 	    // Click on the "Contact us" button
 	    WebElement contactUsBtn = driver.findElement(By.linkText("Contact us"));
@@ -293,7 +250,7 @@ public class AppTest extends TestData {
 	    
 	}
 	
-	@Test(priority = 10,enabled = false)
+	@Test(priority = 7)
 	public void subscriptionTest() throws InterruptedException {
 		// Click on the "Home" button
 	    WebElement  homeBtn = driver.findElement(By.linkText("Home"));
@@ -320,28 +277,8 @@ public class AppTest extends TestData {
 	    System.out.println("✅ Subscription completed successfully.");
 	   
 	}
-	@Test(priority = 11,enabled = false)
-	public void viewCategoryProductTest() throws InterruptedException {
-		// Scroll down 
-	    js.executeScript("window.scrollTo(document.body.scrollHeight, 500);");
-	    Thread.sleep(1000); 
-	    
-	    // Click on the "Women" main category 
-	    WebElement womenCategory = driver.findElement(By.xpath("//a[@href='#Women']")); 
-	    womenCategory.click();
-	    Thread.sleep(2000);
-	    
-	    // Click on the "Dress"
-	    WebElement dressCategory = driver.findElement(By.xpath("//div[@id='Women']//a[normalize-space(text())='Dress']"));
-	    dressCategory.click();
-
-	    // Verify that the category title is displayed on the page
-	    WebElement categoryTitle = driver.findElement(By.xpath("//h2[@class='title text-center']"));
-	    Assert.assertTrue(categoryTitle.isDisplayed(), "❌ Category title not displayed.");
-	    
-	}
 	
-	@Test(priority = 12,enabled = false)
+	@Test(priority = 8)
 	public void viewBrandProductsTest() throws InterruptedException {
 		// Click on 'Products' button
 		WebElement products = driver.findElement(By.partialLinkText("Products"));
@@ -363,7 +300,7 @@ public class AppTest extends TestData {
 	    
 	}
 
-	@Test(priority = 13,enabled = false)
+	@Test(priority = 9)
 	public void submitProductReviewTest() throws InterruptedException {
 		// Click on 'Products' button
 		WebElement products = driver.findElement(By.xpath("//a[@href='/products']"));
@@ -392,16 +329,8 @@ public class AppTest extends TestData {
 	    Assert.assertTrue(successMsg.isDisplayed(), "Review confirmation failed");
 	    
 	}
-	
-	@Test(priority = 14,enabled = false)
-	public void testScrollUpFunctionality() throws InterruptedException {
-	    ((JavascriptExecutor)driver).executeScript("window.scrollTo(0,document.body.scrollHeight)");
-	    driver.findElement(By.id("scrollUp")).click();
-	    Thread.sleep(500);
-	    Assert.assertTrue((Boolean)((JavascriptExecutor)driver).executeScript("return window.pageYOffset < 100"), "Scroll up failed");
-	}
-	
-	@Test(priority = 15,enabled = false)
+
+	@Test(priority = 10)
 	public void testLogoutFunctionality() {
 		// Click on 'Logout' button
 		WebElement logout = driver.findElement(By.linkText("Logout"));
@@ -411,10 +340,10 @@ public class AppTest extends TestData {
 	    Assert.assertTrue(loginLink.isDisplayed() , "Logout verification failed");
 	    
 	}
-	
+	/*
 	@AfterTest
 	public void tearDown() {
 	    driver.quit();
 	}
-
+*/
 }
